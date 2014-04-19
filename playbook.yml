@@ -23,3 +23,11 @@
     - kibana
   vars:
     app_dir: /opt/kibana
+
+- hosts: vagrant
+  sudo: true
+  user: vagrant
+  roles:
+    - nginx
+  vars:
+    kibana_dir: /opt/kibana
