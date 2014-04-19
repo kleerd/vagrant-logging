@@ -1,0 +1,7 @@
+- hosts: vagrant
+  sudo: true
+  user: vagrant
+  tasks:
+    - apt: pkg={{item}} update_cache=yes state=latest
+      with_items:
+        - openjdk-7-jdk
