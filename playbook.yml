@@ -15,3 +15,11 @@
     app_dir: /opt/elasticsearch
     data_dir: /data
     log_dir: /var/log/elasticsearch
+
+- hosts: vagrant
+  sudo: true
+  user: vagrant
+  roles:
+    - kibana
+  vars:
+    app_dir: /opt/kibana
