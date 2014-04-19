@@ -8,4 +8,5 @@
 - shell: mv *servicewrapper*/service {{app_dir}}/bin
 - command: "{{app_dir}}/bin/service/elasticsearch install"
 - shell: ln -s `readlink -f {{app_dir}}/bin/service/elasticsearch` /usr/local/bin/rcelasticsearch
-
+  notify:
+    - start elasticsearch

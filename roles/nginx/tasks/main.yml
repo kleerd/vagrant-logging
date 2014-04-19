@@ -1,2 +1,4 @@
 - apt: pkg=nginx update_cache=yes state=latest
 - template: src=nginx.conf dest=/etc/nginx owner=root group=root mode=0644
+  notify:
+    - start nginx
