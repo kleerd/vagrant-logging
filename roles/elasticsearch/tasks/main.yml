@@ -1,12 +1,28 @@
-- shell: curl -L https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.1.1.tar.gz | tar -xz
-- command: mv elasticsearch-1.1.1 {{app_dir}}
-- file: path={{app_dir}} state=directory recurse=yes owner=vagrant group=vagrant mode=0755
-- file: path={{data_dir}} state=directory recurse=yes owner=vagrant group=vagrant mode=0755
-- file: path={{log_dir}} state=directory recurse=yes owner=vagrant group=vagrant mode=0755
-- template: src=elasticsearch.yml dest={{app_dir}}/config owner=vagrant group=vagrant mode=0644
-- shell: curl -L http://github.com/elasticsearch/elasticsearch-servicewrapper/tarball/master | tar -xz
-- shell: mv *servicewrapper*/service {{app_dir}}/bin
-- command: "{{app_dir}}/bin/service/elasticsearch install"
-- shell: ln -s `readlink -f {{app_dir}}/bin/service/elasticsearch` /usr/local/bin/rcelasticsearch
+- name: download elasticsearch
+  shell: curl -L https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.1.1.tar.gz | tar -xz
+
+- name: install elasticsearch
+  command: mv elasticsearch-1.1.1 {{app_dir}}
+
+- name: create elasticsearch data directory
+  file: path={{data_dir}} state=directory recurse=yes owner=root group=root mode=0755
+
+- name: create elasticsearch log directory
+  file: path={{log_dir}} state=directory recurse=yes owner=root group=root mode=0755
+
+- name: copy elasticsearch conf
+  template: src=elasticsearch.yml dest={{app_dir}}/config owner=root group=root mode=0644
+
+- name: download elasticsearch servicewrapper
+  shell: curl -L http://github.com/elasticsearch/elasticsearch-servicewrapper/tarball/master | tar -xz
+
+- name: move elasticsearch servicewrapper
+  shell: mv *servicewrapper*/service {{app_dir}}/bin
+
+- name: install elasticsearch servicewrapper
+  command: "{{app_dir}}/bin/service/elasticsearch install"
+
+- name: create service link
+  shell: ln -s `readlink -f {{app_dir}}/bin/service/elasticsearch` /usr/local/bin/rcelasticsearch
   notify:
     - start elasticsearch
