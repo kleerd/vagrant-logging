@@ -1,0 +1,5 @@
+index.number_of_replicas: 0
+index.number_of_shards: 1
+
+path.data: {{data_dir}}
+path.logs: {{log_dir}}
