@@ -1,4 +1,6 @@
-- get_url: url=https://download.elasticsearch.org/kibana/kibana/kibana-3.0.1.tar.gz dest=.
-- command: tar zxf kibana-3.0.1.tar.gz
-- command: mv kibana-3.0.1 {{app_dir}}
-- file: path={{app_dir}} state=directory recurse=yes owner=vagrant group=vagrant mode=0755
+- name: download kibana
+  shell: curl -L https://download.elasticsearch.org/kibana/kibana/kibana-3.0.1.tar.gz | tar -xz
+
+- name: install kibana
+  command: mv kibana-3.0.1 {{app_dir}}
+
