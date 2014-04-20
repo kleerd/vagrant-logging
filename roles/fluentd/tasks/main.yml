@@ -1,6 +1,13 @@
-- shell: curl -L http://toolbelt.treasuredata.com/sh/install-ubuntu-lucid.sh | sh
-- apt: pkg=libcurl4-gnutls-dev update_cache=yes state=latest
-- shell: /usr/lib/fluent/ruby/bin/fluent-gem install fluent-plugin-elasticsearch
-- template: src=td-agent.conf dest=/etc/td-agent owner=root group=root mode=0644
+- name: install fluentd
+  shell: curl -L http://toolbelt.treasuredata.com/sh/install-ubuntu-lucid.sh | sh
+
+- name: install fluentd dependency
+  apt: pkg=libcurl4-gnutls-dev update_cache=yes state=latest
+
+- name: install fluentd elasticsearch plugin
+  shell: /usr/lib/fluent/ruby/bin/fluent-gem install fluent-plugin-elasticsearch
+
+- name: copy fluentd conf
+  template: src=td-agent.conf dest=/etc/td-agent owner=root group=root mode=0644
   notify:
     - start fluentd
