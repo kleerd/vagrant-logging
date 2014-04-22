@@ -1,0 +1,14 @@
+- name: copy rsyslog conf
+  template: src=rsyslog.conf dest=/etc owner=root group=root mode=0644
+  notify:
+    - restart rsyslog
+
+- name: copy rsyslog default log conf
+  template: src=50-default.conf dest=/etc/rsyslog.d owner=root group=root mode=0644
+  notify:
+    - restart rsyslog
+
+- name: copy rsyslog conf to output to syslog
+  template: src=to-syslog.conf dest=/etc/rsyslog.d owner=root group=root mode=0644
+  notify:
+    - restart rsyslog

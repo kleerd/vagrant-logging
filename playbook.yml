@@ -37,3 +37,9 @@
   user: vagrant
   roles:
     - fluentd
+
+- hosts: vagrant
+  sudo: true
+  user: vagrant
+  roles:
+    - rsyslog
