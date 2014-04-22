@@ -1,2 +1,2 @@
-- name: start fluentd
-  service: name=td-agent state=started
+- name: restart td-agent
+  service: name=td-agent state=restarted

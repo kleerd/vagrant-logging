@@ -10,4 +10,4 @@
 - name: copy fluentd conf
   template: src=td-agent.conf dest=/etc/td-agent owner=root group=root mode=0644
   notify:
-    - start fluentd
+    - restart td-agent
